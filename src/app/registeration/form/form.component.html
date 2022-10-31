@@ -1,0 +1,116 @@
+<div class="text-center my-5">
+  <h5 class="text-danger">Registeration Form</h5>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7">
+         <div class="card">
+          <div class="card-body">
+            <h6 class="text-danger">Registered Users</h6>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Company</th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody *ngIf="regFormList.length > 0">
+              <tr *ngFor="let reg of regFormList; let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{reg.firstName |titlecase}} {{reg.lastName | titlecase}}</td>
+                <td>
+                  <span>{{reg.email}}</span> <br>
+                  <span>{{reg.phone}}</span>
+                </td>
+                <td>{{reg.company | titlecase}}</td>
+                <td>
+                  <button class="border-0 bg-transparent" (click)="editUser(reg, i)">
+                    <span class="material-icons-outlined">
+                      edit
+                      </span>
+                  </button>
+                  <button class="border-0 bg-transparent" (click)="deleteUser(i)">
+                    <span class="material-icons-outlined">
+                      delete
+                      </span>
+                  </button>
+
+                   
+                </td>
+
+              </tr>
+              
+            </tbody>
+          </table>
+          </div>
+         </div>
+        </div>
+        <div class="col-5">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="text-danger">Add User</h6>
+            <form class="row g-3 " #addUser="ngForm" (ngSubmit)="addUser.form.valid && addUsers(addUser)" autocomplete="off" >
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">First name</label>
+                  <input type="text" class="form-control" id="firstName" name="firstName"  #firstName="ngModel" [(ngModel)]="regForm.firstName" required [ngClass]="{ 'is-invalid':addUser.submitted && firstName.errors} ">
+                  
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">Last name</label>
+                  <input type="text" class="form-control" id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="regForm.lastName" required  [ngClass]="{ 'is-invalid':addUser.submitted && lastName.errors} ">
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" #email="ngModel" [(ngModel)]="regForm.email"  required [ngClass]="{ 'is-invalid':addUser.submitted && email.errors} ">
+                </div>
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="number" class="form-control" id="phone" name="phone" #phone="ngModel" [(ngModel)]="regForm.phone"  required  [ngClass]="{ 'is-invalid':addUser.submitted && phone.errors} ">
+                </div>
+                <div class="col-md-6">
+                  <label for="company" class="form-label">Company</label>
+                  <input type="text" class="form-control" id="company" name="company" #company="ngModel" [(ngModel)]="regForm.company" required [ngClass]="{ 'is-invalid':addUser.submitted && company.errors} ">
+                </div>
+               <div class="col-md-6 ">
+                <label for="male" class="form-label">Gender</label>
+                <div class="d-flex">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male" [(ngModel)]="regForm.gender">
+                    <label class="form-check-label" for="gender">
+                    Male
+                    </label>
+                  </div>
+                  <div class="form-check ms-3">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="Female" [(ngModel)]="regForm.gender" >
+                    <label class="form-check-label" for="female">
+                      Female
+                    </label>
+                  </div>
+                </div>
+               </div>
+               <div class="col-md-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" #password="ngModel" [(ngModel)]="regForm.password"  required [ngClass]="{ 'is-invalid':addUser.submitted && password.errors} ">
+              </div>
+              <div class="col-md-6">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="regForm.confirmPassword"  required [ngClass]="{ 'is-invalid':addUser.submitted && confirmPassword.errors} ">
+              </div>
+              <div class="text-danger text-center" *ngIf="errorMsg != null">
+                {{errorMsg}}
+              </div>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-red" >Add</button>
+                <button type="reset" class="btn btn-ash ms-3" >Cancel</button>
+              </div>
+              </form>
+          </div>
+        </div>
+        </div>
+    </div>
+</div>
